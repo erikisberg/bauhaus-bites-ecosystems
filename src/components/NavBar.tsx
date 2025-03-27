@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -16,9 +18,11 @@ const NavBar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
+
   const navItems = [{
     name: 'HOME',
     path: '/'
@@ -29,17 +33,22 @@ const NavBar = () => {
     name: 'CITIES',
     path: '/cities'
   }, {
+    name: 'PARTNERS',
+    path: '/partners'
+  }, {
     name: 'RESOURCES',
     path: '/resources'
   }, {
     name: 'CONTACT',
     path: '/contact'
   }];
+
   const isActive = (path: string) => {
     if (path === '/' && location.pathname === '/') return true;
     if (path !== '/' && location.pathname.startsWith(path)) return true;
     return false;
   };
+
   return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-bauhaus-dark/95 shadow-md backdrop-blur-md' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#1b3f46]">
         <div className="flex justify-between h-16 items-center">
@@ -78,4 +87,5 @@ const NavBar = () => {
       </div>
     </nav>;
 };
+
 export default NavBar;
