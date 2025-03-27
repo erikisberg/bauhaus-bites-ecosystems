@@ -2,7 +2,7 @@
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { useState } from 'react';
-import { MapPin, Mail, Phone, Send } from 'lucide-react';
+import { MapPin, Mail, Phone, Send, ArrowRight } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 
 const Contact = () => {
