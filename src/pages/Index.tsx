@@ -6,18 +6,18 @@ import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useHeroData, useProjectsData, useCitiesData } from '../hooks/useSanityData';
+import { urlFor } from '../lib/sanity';
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sectionsRef = useRef<HTMLDivElement>(null);
   
-  const slides = [
-    {
-      title: "BAUHAUS BITES",
-      subtitle: "Transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems.",
-      image: "https://images.unsplash.com/photo-1623265300797-4a3541e1a9a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-    }
-  ];
+  const { data: heroData, isLoading: heroLoading } = useHeroData();
+  const { data: projectsData, isLoading: projectsLoading } = useProjectsData();
+  const { data: citiesData, isLoading: citiesLoading } = useCitiesData();
+  
+  const slides = heroData || []; 
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,14 +27,24 @@ const Index = () => {
     return () => clearInterval(interval);
   }, [slides.length]);
   
+  const currentHero = slides[currentSlide] || {
+    title: "BAUHAUS BITES",
+    subtitle: "Transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems.",
+    image: { _type: 'image', asset: { _ref: '', _type: 'reference' } }
+  };
+  
+  const heroImageUrl = currentHero.image && currentHero.image.asset && currentHero.image.asset._ref 
+    ? urlFor(currentHero.image).url() 
+    : "https://images.unsplash.com/photo-1623265300797-4a3541e1a9a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80";
+  
   return (
     <div className="min-h-screen">
       <NavBar />
       
       <Hero 
-        title={slides[currentSlide].title} 
-        subtitle={slides[currentSlide].subtitle}
-        imageUrl={slides[currentSlide].image}
+        title={currentHero.title} 
+        subtitle={currentHero.subtitle}
+        imageUrl={heroImageUrl}
       />
       
       <section className="section-padding bg-bauhaus-light" ref={sectionsRef}>
@@ -52,18 +62,42 @@ const Index = () => {
             </p>
           </div>
           
-          <FeaturedProject
-            image="https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-            title="Sustainable Food Ecosystems"
-            description="Over the next three years, we will co-create and test new 'Bauhaus Bites Food Environments' in seven European cities, blending cutting-edge Nature-Based Solutions (NBS) with sustainable dietary practices. By focusing on local needs, social inclusivity, and the beauty of shared spaces, we aim to demonstrate how food systems can positively shape our cities and communities."
-          />
-          
-          <FeaturedProject
-            image="https://images.unsplash.com/photo-1474440692490-2e83ae13ba29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-            title="Nature-Based Solutions"
-            description="By integrating Nature-Based Solutions into urban food systems, we're creating resilient environments that benefit both people and the planet. Our approach combines traditional knowledge with innovative technologies to address food security challenges while enhancing biodiversity and improving urban livability."
-            reverse
-          />
+          {projectsLoading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-pulse">Loading projects...</div>
+            </div>
+          ) : (
+            <>
+              {projectsData.length > 0 ? (
+                projectsData.slice(0, 2).map((project, index) => (
+                  <FeaturedProject
+                    key={index}
+                    image={project.image && project.image.asset && project.image.asset._ref 
+                      ? urlFor(project.image).url() 
+                      : "https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"}
+                    title={project.title}
+                    description={project.description}
+                    reverse={index % 2 !== 0}
+                  />
+                ))
+              ) : (
+                <>
+                  <FeaturedProject
+                    image="https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                    title="Sustainable Food Ecosystems"
+                    description="Over the next three years, we will co-create and test new 'Bauhaus Bites Food Environments' in seven European cities, blending cutting-edge Nature-Based Solutions (NBS) with sustainable dietary practices. By focusing on local needs, social inclusivity, and the beauty of shared spaces, we aim to demonstrate how food systems can positively shape our cities and communities."
+                  />
+                  
+                  <FeaturedProject
+                    image="https://images.unsplash.com/photo-1474440692490-2e83ae13ba29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    title="Nature-Based Solutions"
+                    description="By integrating Nature-Based Solutions into urban food systems, we're creating resilient environments that benefit both people and the planet. Our approach combines traditional knowledge with innovative technologies to address food security challenges while enhancing biodiversity and improving urban livability."
+                    reverse
+                  />
+                </>
+              )}
+            </>
+          )}
         </div>
       </section>
       
@@ -82,43 +116,69 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="relative overflow-hidden rounded-lg shadow-lg group">
-              <img
-                src="https://images.unsplash.com/photo-1546636889-ba9fdd63583e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
-                alt="Amsterdam"
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-60" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-white text-xl font-bold">Amsterdam</h3>
-              </div>
+          {citiesLoading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-pulse">Loading cities...</div>
             </div>
-            
-            <div className="relative overflow-hidden rounded-lg shadow-lg group">
-              <img
-                src="https://images.unsplash.com/photo-1516550893885-7b7791882062?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1972&q=80"
-                alt="Barcelona"
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-60" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-white text-xl font-bold">Barcelona</h3>
-              </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {citiesData.length > 0 ? (
+                citiesData.slice(0, 3).map((city, index) => (
+                  <div key={index} className="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img
+                      src={city.image && city.image.asset && city.image.asset._ref 
+                        ? urlFor(city.image).url() 
+                        : `https://images.unsplash.com/photo-1546636889-ba9fdd63583e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80`}
+                      alt={city.name}
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-60" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-white text-xl font-bold">{city.name}</h3>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img
+                      src="https://images.unsplash.com/photo-1546636889-ba9fdd63583e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
+                      alt="Amsterdam"
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-60" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-white text-xl font-bold">Amsterdam</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img
+                      src="https://images.unsplash.com/photo-1516550893885-7b7791882062?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1972&q=80"
+                      alt="Barcelona"
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-60" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-white text-xl font-bold">Barcelona</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img
+                      src="https://images.unsplash.com/photo-1551352912-484163ad5be0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
+                      alt="Copenhagen"
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-60" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-white text-xl font-bold">Copenhagen</h3>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
-            
-            <div className="relative overflow-hidden rounded-lg shadow-lg group">
-              <img
-                src="https://images.unsplash.com/photo-1551352912-484163ad5be0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
-                alt="Copenhagen"
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-60" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-white text-xl font-bold">Copenhagen</h3>
-              </div>
-            </div>
-          </div>
+          )}
           
           <div className="mt-12 text-center">
             <Link to="/cities" className="inline-flex items-center text-bauhaus-accent hover:text-bauhaus-dark font-medium transition-colors">
