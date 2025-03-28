@@ -22,11 +22,12 @@ export function useSanityData<T>(
 
 // Specific hooks for different content types
 export function useHeroData() {
+  // Fix the type by ensuring image._type is explicitly "image"
   const fallbackData = [{
     title: "BAUHAUS BITES",
     subtitle: "Transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems.",
     image: {
-      _type: 'image',
+      _type: "image" as "image", // Use type assertion to ensure it's the literal "image" type
       asset: {
         _ref: '',
         _type: 'reference'
