@@ -3,7 +3,7 @@ import './index.css';
 
 // In development, use the regular React entry
 if (import.meta.env.DEV) {
-  import('./entry-client');
+  import('./entry-client.jsx');
 }
 
 // This helps react-snap know when the page has been loaded
