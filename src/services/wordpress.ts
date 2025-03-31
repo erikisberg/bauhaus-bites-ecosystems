@@ -1,3 +1,4 @@
+
 import WPAPI from 'wpapi';
 
 // Initialize the WordPress API
@@ -58,6 +59,45 @@ const formatCity = (city: any) => {
     category: city.acf?.category || "",
     features: city.acf?.features || [],
     gallery: city.acf?.gallery?.map((item: any) => item.url) || []
+  };
+};
+
+// Format publication data from WordPress
+const formatPublication = (pub: any) => {
+  return {
+    id: pub.id,
+    title: pub.title.rendered,
+    authors: pub.acf?.authors || "Unknown authors",
+    date: pub.acf?.publication_year || new Date(pub.date).getFullYear().toString(),
+    description: pub.excerpt?.rendered 
+      ? pub.excerpt.rendered.replace(/<\/?[^>]+(>|$)/g, "") 
+      : "",
+    link: pub.acf?.external_link || `#publication-${pub.id}`
+  };
+};
+
+// Format media resource data from WordPress
+const formatMediaResource = (media: any) => {
+  return {
+    id: media.id,
+    title: media.title.rendered,
+    type: media.acf?.media_type || "Video",
+    duration: media.acf?.duration || "00:00",
+    thumbnail: media._embedded?.['wp:featuredmedia']?.[0]?.source_url || undefined,
+    link: media.acf?.video_link || `#media-${media.id}`
+  };
+};
+
+// Format toolkit data from WordPress
+const formatToolkit = (toolkit: any) => {
+  return {
+    id: toolkit.id,
+    title: toolkit.title.rendered,
+    description: toolkit.excerpt?.rendered 
+      ? toolkit.excerpt.rendered.replace(/<\/?[^>]+(>|$)/g, "") 
+      : "",
+    fileSize: toolkit.acf?.file_size || "1.0 MB",
+    link: toolkit.acf?.download_link || `#toolkit-${toolkit.id}`
   };
 };
 
@@ -151,6 +191,45 @@ export const wpService = {
       const defaultCity = getDefaultCities().find(c => c.id.toString() === id);
       return defaultCity || null;
     }
+  },
+  
+  // Get publications
+  getPublications: async () => {
+    try {
+      // Assuming 'publication' is the custom post type name in WordPress
+      const publications = await wp.posts().type('publication').embed().get();
+      return publications.map(formatPublication);
+    } catch (error) {
+      console.error('Error fetching publications:', error);
+      // Return fallback publications if API fails
+      return getDefaultPublications();
+    }
+  },
+  
+  // Get media resources
+  getMediaResources: async () => {
+    try {
+      // Assuming 'media' is the custom post type name in WordPress
+      const mediaResources = await wp.posts().type('media').embed().get();
+      return mediaResources.map(formatMediaResource);
+    } catch (error) {
+      console.error('Error fetching media resources:', error);
+      // Return fallback media resources if API fails
+      return getDefaultMediaResources();
+    }
+  },
+  
+  // Get toolkits
+  getToolkits: async () => {
+    try {
+      // Assuming 'toolkit' is the custom post type name in WordPress
+      const toolkits = await wp.posts().type('toolkit').embed().get();
+      return toolkits.map(formatToolkit);
+    } catch (error) {
+      console.error('Error fetching toolkits:', error);
+      // Return fallback toolkits if API fails
+      return getDefaultToolkits();
+    }
   }
 };
 
@@ -177,5 +256,92 @@ function getDefaultCities() {
       ]
     },
     // ... more default cities would go here
+  ];
+}
+
+// Default publications data as fallback
+function getDefaultPublications() {
+  return [
+    {
+      id: 1,
+      title: "Nature-Based Solutions for Urban Food Systems",
+      authors: "Smith, J., Johnson, A., et al.",
+      date: "2023",
+      description: "This paper explores the integration of Nature-Based Solutions in urban food environments, with case studies from European cities.",
+      link: "#"
+    },
+    {
+      id: 2,
+      title: "Food Environments and Social Inclusivity",
+      authors: "Garcia, M., Patel, S., et al.",
+      date: "2023",
+      description: "An examination of how food environments can be designed to promote social inclusivity and community engagement.",
+      link: "#"
+    },
+    {
+      id: 3,
+      title: "Measuring Sustainability in Urban Food Systems",
+      authors: "Müller, T., Chen, L., et al.",
+      date: "2022",
+      description: "A framework for measuring and evaluating the sustainability of urban food systems, with metrics and indicators.",
+      link: "#"
+    }
+  ];
+}
+
+// Default media resources data as fallback
+function getDefaultMediaResources() {
+  return [
+    {
+      id: 1,
+      title: "Urban Farming Innovations",
+      type: "Video",
+      duration: "12:34",
+      thumbnail: "https://images.unsplash.com/photo-1585952354446-edf896bbbd0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
+      link: "#"
+    },
+    {
+      id: 2,
+      title: "Community Gardens: Building Social Capital",
+      type: "Video",
+      duration: "08:45",
+      thumbnail: "https://images.unsplash.com/photo-1445052520430-32c8ebc92fe3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
+      link: "#"
+    },
+    {
+      id: 3,
+      title: "Sustainable Food Distribution Systems",
+      type: "Video",
+      duration: "15:20",
+      thumbnail: "https://images.unsplash.com/photo-1595925889916-2a1d773a0613?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
+      link: "#"
+    }
+  ];
+}
+
+// Default toolkits data as fallback
+function getDefaultToolkits() {
+  return [
+    {
+      id: 1,
+      title: "Urban Gardening Starter Guide",
+      description: "A comprehensive guide for communities looking to establish urban gardens in various settings.",
+      fileSize: "2.4 MB",
+      link: "#"
+    },
+    {
+      id: 2,
+      title: "Food System Assessment Toolkit",
+      description: "Methods and tools for assessing the sustainability and inclusivity of local food systems.",
+      fileSize: "3.8 MB",
+      link: "#"
+    },
+    {
+      id: 3,
+      title: "Community Engagement Strategies",
+      description: "Approaches for involving diverse community members in food environment projects.",
+      fileSize: "1.7 MB",
+      link: "#"
+    }
   ];
 }
