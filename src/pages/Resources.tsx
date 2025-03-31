@@ -1,6 +1,7 @@
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import { ArrowRight, FileText, Video, Download, Link as LinkIcon } from 'lucide-react';
+import ArticleFeed from '../components/ArticleFeed';
+import { ArrowRight, FileText, Video, Download, Link as LinkIcon, Newspaper } from 'lucide-react';
 
 const Resources = () => {
   const publications = [
@@ -98,6 +99,25 @@ const Resources = () => {
         </div>
         
         <section className="py-12 px-4 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-8">
+              <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
+                <Newspaper className="w-3 h-3 inline mr-1" />
+                News & Articles
+              </span>
+              <h2 className="text-3xl font-bold text-bauhaus-dark mb-4">
+                Latest Updates
+              </h2>
+              <p className="text-gray-700 max-w-3xl">
+                Stay informed with the latest news, developments, and success stories from our initiatives across Europe.
+              </p>
+            </div>
+            
+            <ArticleFeed />
+          </div>
+        </section>
+        
+        <section className="py-12 px-4 bg-bauhaus-light">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
               <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
