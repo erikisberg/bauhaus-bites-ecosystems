@@ -41,6 +41,7 @@ async function createServer() {
       // 5. Inject the app-rendered HTML into the template
       const appHtml = template
         .replace(`<!--app-html-->`, html)
+        .replace('<div id="root">', '<div id="root" data-ssr>')
         .replace('<!--preloaded-state-->', 
           `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}</script>`);
       
@@ -49,6 +50,7 @@ async function createServer() {
     } catch (e) {
       // If an error is caught, let Vite fix the stack trace for better debugging
       vite.ssrFixStacktrace(e);
+      console.error('SSR Error:', e);
       next(e);
     }
   });
@@ -58,4 +60,6 @@ async function createServer() {
   });
 }
 
-createServer();
+createServer().catch(err => {
+  console.error('Error starting server:', err);
+});

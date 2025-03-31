@@ -16,12 +16,20 @@ const queryClient = new QueryClient({
 
 // If we have a preloaded state, use it to initialize the query client
 if (window.__PRELOADED_STATE__) {
-  queryClient.setQueryData(window.__PRELOADED_STATE__.queryCache);
+  try {
+    const state = window.__PRELOADED_STATE__;
+    if (state.queryCache) {
+      queryClient.setQueryData(state.queryCache);
+    }
+  } catch (error) {
+    console.error('Error hydrating query client:', error);
+  }
 }
 
 // Use hydrateRoot for SSR or createRoot for CSR
-if (rootElement.innerHTML === '') {
-  createRoot(rootElement).render(
+if (rootElement.hasAttribute('data-ssr')) {
+  hydrateRoot(
+    rootElement,
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <App />
@@ -29,8 +37,7 @@ if (rootElement.innerHTML === '') {
     </QueryClientProvider>
   );
 } else {
-  hydrateRoot(
-    rootElement,
+  createRoot(rootElement).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <App />
