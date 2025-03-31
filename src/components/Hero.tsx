@@ -41,21 +41,21 @@ const Hero = ({ title, subtitle, imageUrl }: HeroProps) => {
     }
   }, []);
 
+  const backgroundImageUrl = imageUrl || "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80";
+
   return (
-    <div className="relative min-h-screen bg-bauhaus-dark overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden">
       {/* Full-screen background image */}
-      {imageUrl && (
-        <div 
-          ref={imageRef}
-          className="opacity-0 absolute inset-0 bg-cover bg-center bg-no-repeat w-full h-full"
-          style={{ 
-            backgroundImage: `url(${imageUrl})`,
-          }}
-        >
-          {/* Dark overlay to ensure text readability */}
-          <div className="absolute inset-0 bg-bauhaus-dark/60"></div>
-        </div>
-      )}
+      <div 
+        ref={imageRef}
+        className="opacity-0 absolute inset-0 bg-cover bg-center bg-no-repeat w-full h-full"
+        style={{ 
+          backgroundImage: `url(${backgroundImageUrl})`,
+        }}
+      >
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-bauhaus-dark/60"></div>
+      </div>
       
       <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 lg:px-8 pt-16">
         <h1 
