@@ -64,11 +64,13 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
                 bauhaus: {
-                    dark: '#1B3F46',
-                    light: '#E4EDEB',
-                    accent: '#3A8C83',
-                    highlight: '#FF5C41',
-                    neutral: '#F5F7F7',
+                    dark: '#165163',       // dark teal
+                    medium: '#43616C',     // medium slate blue
+                    light: '#B0D8D4',      // light teal/mint
+                    lighter: '#D9E9E8',    // very light teal/mint
+                    accent: '#E57B24',     // orange
+                    secondary: '#F3D219',  // yellow
+                    neutral: '#AFC7C6',    // grayish teal
                 }
 			},
 			borderRadius: {

@@ -58,7 +58,7 @@ const FeaturedProject = ({
                 
                 <CollapsibleTrigger asChild>
                   <button 
-                    className="flex items-center gap-2 text-bauhaus-accent hover:text-bauhaus-highlight transition-colors mt-2 font-medium"
+                    className="flex items-center gap-2 text-bauhaus-accent hover:text-bauhaus-secondary transition-colors mt-2 font-medium"
                   >
                     {isOpen ? (
                       <>
@@ -79,7 +79,7 @@ const FeaturedProject = ({
           
           <a 
             href="#" 
-            className={`inline-flex items-center mt-4 text-bauhaus-accent hover:text-bauhaus-highlight gap-1 transition-all duration-300 font-medium ${isHovered ? 'gap-2' : ''}`}
+            className={`inline-flex items-center mt-4 text-bauhaus-accent hover:text-bauhaus-secondary gap-1 transition-all duration-300 font-medium ${isHovered ? 'gap-2' : ''}`}
           >
             Learn more 
             <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
