@@ -2,6 +2,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import ArticleFeed from '../components/ArticleFeed';
 import { ArrowRight, FileText, Video, Download, Link as LinkIcon, Newspaper } from 'lucide-react';
+
 const Resources = () => {
   const publications = [{
     id: 1,
@@ -25,6 +26,7 @@ const Resources = () => {
     description: "A framework for measuring and evaluating the sustainability of urban food systems, with metrics and indicators.",
     link: "#"
   }];
+
   const mediaResources = [{
     id: 1,
     title: "Urban Farming Innovations",
@@ -47,6 +49,7 @@ const Resources = () => {
     thumbnail: "https://images.unsplash.com/photo-1595925889916-2a1d773a0613?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     link: "#"
   }];
+
   const toolkits = [{
     id: 1,
     title: "Urban Gardening Starter Guide",
@@ -66,6 +69,7 @@ const Resources = () => {
     fileSize: "1.7 MB",
     link: "#"
   }];
+
   return <div className="min-h-screen">
       <NavBar />
       
@@ -100,7 +104,7 @@ const Resources = () => {
           </div>
         </section>
         
-        <section className="py-12 px-4 bg-bauhaus-light">
+        <section className="py-12 px-4 bg-gray-50">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
               <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
@@ -245,4 +249,5 @@ const Resources = () => {
       <Footer />
     </div>;
 };
+
 export default Resources;
