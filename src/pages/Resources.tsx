@@ -202,48 +202,6 @@ const Resources = () => {
             </div>
           </div>
         </section>
-        
-        <section className="py-16 px-4 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-12">
-              <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
-                External Resources
-              </span>
-              <h2 className="text-3xl font-bold text-bauhaus-dark mb-6">
-                Related Initiatives
-              </h2>
-              <p className="text-gray-700 max-w-3xl">
-                Explore other projects and resources related to sustainable food systems and the New European Bauhaus.
-              </p>
-            </div>
-            
-            <div className="grid gap-4">
-              <a href="#" className="flex items-start p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-                <LinkIcon className="text-bauhaus-accent mr-4 mt-1" />
-                <div>
-                  <h3 className="text-lg font-bold text-bauhaus-dark mb-1">New European Bauhaus</h3>
-                  <p className="text-gray-700">The official website of the New European Bauhaus initiative.</p>
-                </div>
-              </a>
-              
-              <a href="#" className="flex items-start p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-                <LinkIcon className="text-bauhaus-accent mr-4 mt-1" />
-                <div>
-                  <h3 className="text-lg font-bold text-bauhaus-dark mb-1">Urban Food Systems Coalition</h3>
-                  <p className="text-gray-700">A network of organizations working on sustainable urban food systems globally.</p>
-                </div>
-              </a>
-              
-              <a href="#" className="flex items-start p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-                <LinkIcon className="text-bauhaus-accent mr-4 mt-1" />
-                <div>
-                  <h3 className="text-lg font-bold text-bauhaus-dark mb-1">Nature-Based Solutions Initiative</h3>
-                  <p className="text-gray-700">Research and resources on Nature-Based Solutions for sustainability challenges.</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </section>
       </div>
       
       <Footer />
