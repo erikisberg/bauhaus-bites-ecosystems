@@ -8,6 +8,9 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ title, subtitle, imageUrl }: HeroSectionProps) => {
+  // For debugging purposes
+  console.log("HeroSection received imageUrl:", imageUrl);
+  
   return (
     <Hero 
       title={title} 

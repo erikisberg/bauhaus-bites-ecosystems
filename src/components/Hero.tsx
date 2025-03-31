@@ -41,8 +41,11 @@ const Hero = ({ title, subtitle, imageUrl }: HeroProps) => {
     }
   }, []);
 
-  // Use uploaded image as default background
+  // Ensure the background image is properly referenced
   const backgroundImageUrl = imageUrl || "/lovable-uploads/6d6466da-efef-42db-afda-e1194d2311e9.png";
+  
+  // For debugging purposes
+  console.log("Background image URL:", backgroundImageUrl);
 
   return (
     <div className="relative min-h-screen overflow-hidden">

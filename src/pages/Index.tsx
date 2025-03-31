@@ -16,7 +16,7 @@ const Index = () => {
     {
       title: "BAUHAUS BITES",
       subtitle: "Transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems.",
-      image: "https://images.unsplash.com/photo-1623265300797-4a3541e1a9a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+      image: "/lovable-uploads/6d6466da-efef-42db-afda-e1194d2311e9.png"
     }
   ];
   
@@ -27,6 +27,9 @@ const Index = () => {
     
     return () => clearInterval(interval);
   }, [slides.length]);
+  
+  // For debugging purposes
+  console.log("Current slide image:", slides[currentSlide].image);
   
   return (
     <div className="min-h-screen">
