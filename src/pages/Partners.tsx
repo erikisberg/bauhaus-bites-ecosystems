@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -149,7 +148,6 @@ const Partners = () => {
                       />
                     </div>
                     <CardContent className="p-4">
-                      <div className="text-sm text-bauhaus-accent mb-1">{partner.category}</div>
                       <h3 className="font-semibold text-bauhaus-dark">{partner.name}</h3>
                       <a 
                         href={partner.website} 
@@ -178,7 +176,6 @@ const Partners = () => {
                       </div>
                       <CardContent className="p-6 flex flex-col justify-between flex-grow">
                         <div>
-                          <div className="text-sm text-bauhaus-accent mb-1">{partner.category}</div>
                           <h3 className="font-semibold text-bauhaus-dark text-xl mb-2">{partner.name}</h3>
                           <p className="text-gray-600">{partner.description}</p>
                         </div>
