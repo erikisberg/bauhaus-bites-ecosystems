@@ -1,3 +1,4 @@
+
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { ArrowRight } from 'lucide-react';
@@ -54,6 +55,68 @@ const About = () => {
                   className="relative rounded-lg shadow-lg w-full h-auto z-10"
                 />
               </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* New section for longer explanations/essays */}
+        <section className="py-20 px-4 bg-bauhaus-lighter">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
+                Our Approach
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-bauhaus-dark mb-6">
+                The Philosophy Behind Bauhaus Bites
+              </h2>
+            </div>
+            
+            <div className="prose prose-lg max-w-none text-gray-700">
+              <p>
+                The New European Bauhaus initiative calls for a transformation in how we design and live in our urban environments, 
+                with a focus on sustainability, inclusivity, and aesthetics. Bauhaus Bites applies these principles specifically 
+                to food systems, recognizing that food is not only essential for life but also deeply intertwined with culture, 
+                community, and our relationship with the natural world.
+              </p>
+              
+              <p className="mt-6">
+                Our project is founded on three key pillars:
+              </p>
+              
+              <h3 className="text-xl font-bold text-bauhaus-dark mt-8 mb-4">Ecological Sustainability</h3>
+              <p>
+                Urban and peri-urban areas face unique challenges in food production and distribution. By integrating Nature-Based 
+                Solutions such as urban gardens, green roofs, and water management systems, we can create food environments that 
+                not only provide nutritious food but also enhance biodiversity, improve air quality, and mitigate climate change 
+                effects. These solutions work with natural processes rather than against them, creating regenerative systems 
+                that can sustain themselves over time with minimal resource inputs.
+              </p>
+              
+              <h3 className="text-xl font-bold text-bauhaus-dark mt-8 mb-4">Social Inclusivity</h3>
+              <p>
+                Food environments must be accessible to all members of society, regardless of socioeconomic status, age, or 
+                cultural background. Our approach emphasizes community participation in the design and implementation of food 
+                initiatives, ensuring that diverse voices are heard and respected. By creating spaces where people can grow, 
+                prepare, and share food together, we foster social connections and a sense of belonging. These shared 
+                experiences around food can bridge divides and build stronger, more resilient communities.
+              </p>
+              
+              <h3 className="text-xl font-bold text-bauhaus-dark mt-8 mb-4">Cultural Richness</h3>
+              <p>
+                The aesthetic dimension of the New European Bauhaus is not just about visual beauty but about creating 
+                meaningful experiences that enrich our lives. Food has deep cultural significance, and our project celebrates 
+                this diversity while encouraging innovation. By designing food environments that are beautiful, functional, 
+                and culturally resonant, we create spaces that people want to engage with and that contribute to quality of life. 
+                This might include thoughtfully designed community kitchens, markets that showcase local products, or 
+                educational gardens that tell stories about traditional food ways.
+              </p>
+              
+              <p className="mt-8">
+                Through our work in seven European cities, we will demonstrate how these principles can be applied in different 
+                contexts, addressing specific local challenges while contributing to a broader vision of sustainable urban food 
+                systems. By documenting and sharing our experiences, we hope to inspire similar initiatives across Europe and beyond, 
+                creating a movement toward more sustainable, inclusive, and beautiful food environments for all.
+              </p>
             </div>
           </div>
         </section>
