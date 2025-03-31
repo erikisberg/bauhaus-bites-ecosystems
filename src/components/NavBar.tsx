@@ -51,32 +51,34 @@ const NavBar = () => {
     return false;
   };
 
-  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-bauhaus-dark/95 shadow-md backdrop-blur-md' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-bauhaus-dark">
-        <div className="flex justify-between h-16 items-center">
-          <div className="flex items-center">
-            <Logo size="md" />
-          </div>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map(item => <Link key={item.name} to={item.path} className={`link-underline px-1 py-2 text-sm font-medium tracking-wider transition-colors relative
-                  ${isActive(item.path) 
-                    ? 'text-bauhaus-secondary font-bold' 
-                    : 'text-white/90 hover:text-white'}`}>
-                {item.name}
-                {isActive(item.path) && (
-                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-bauhaus-secondary rounded-full"></span>
-                )}
-              </Link>)}
-          </div>
-          
-          {/* Mobile Navigation Button */}
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-bauhaus-highlight focus:outline-none" aria-expanded="false">
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? <X className="block h-6 w-6" aria-hidden="true" /> : <Menu className="block h-6 w-6" aria-hidden="true" />}
-            </button>
+  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${scrolled ? 'bg-bauhaus-dark/95 shadow-md backdrop-blur-md' : 'bg-transparent'}`}>
+      <div className="w-full bg-bauhaus-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center">
+              <Logo size="md" />
+            </div>
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-8">
+              {navItems.map(item => <Link key={item.name} to={item.path} className={`link-underline px-1 py-2 text-sm font-medium tracking-wider transition-colors relative
+                    ${isActive(item.path) 
+                      ? 'text-bauhaus-secondary font-bold' 
+                      : 'text-white/90 hover:text-white'}`}>
+                  {item.name}
+                  {isActive(item.path) && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-bauhaus-secondary rounded-full"></span>
+                  )}
+                </Link>)}
+            </div>
+            
+            {/* Mobile Navigation Button */}
+            <div className="md:hidden">
+              <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-bauhaus-highlight focus:outline-none" aria-expanded="false">
+                <span className="sr-only">Open main menu</span>
+                {isOpen ? <X className="block h-6 w-6" aria-hidden="true" /> : <Menu className="block h-6 w-6" aria-hidden="true" />}
+              </button>
+            </div>
           </div>
         </div>
       </div>
