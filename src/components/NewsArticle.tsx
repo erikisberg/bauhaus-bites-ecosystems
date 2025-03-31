@@ -25,6 +25,7 @@ const NewsArticle = ({ title, description, date, image, link }: NewsArticleProps
       <CardHeader>
         <div className="text-sm text-muted-foreground mb-2">{date}</div>
         <CardTitle className="line-clamp-2">{title}</CardTitle>
+        <CardDescription className="line-clamp-2">{description}</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
         <p className="text-gray-700 line-clamp-3">{description}</p>
