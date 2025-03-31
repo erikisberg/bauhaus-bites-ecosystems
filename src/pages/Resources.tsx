@@ -98,13 +98,13 @@ const Resources = () => {
           </div>
         </div>
         
-        <section className="py-16 px-4 bg-white">
+        <section className="py-12 px-4 bg-white">
           <div className="max-w-7xl mx-auto">
-            <div className="mb-12">
+            <div className="mb-8">
               <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
                 Publications
               </span>
-              <h2 className="text-3xl font-bold text-bauhaus-dark mb-6">
+              <h2 className="text-3xl font-bold text-bauhaus-dark mb-4">
                 Research Papers & Reports
               </h2>
               <p className="text-gray-700 max-w-3xl">
@@ -113,23 +113,23 @@ const Resources = () => {
               </p>
             </div>
             
-            <div className="grid gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {publications.map((pub) => (
-                <div key={pub.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div key={pub.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-start">
-                    <div className="mr-4 mt-1">
-                      <FileText className="text-bauhaus-accent" />
+                    <div className="mr-3 mt-1 shrink-0">
+                      <FileText className="text-bauhaus-accent h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-bauhaus-dark mb-2">{pub.title}</h3>
-                      <p className="text-gray-600 text-sm mb-3">{pub.authors} • {pub.date}</p>
-                      <p className="text-gray-700 mb-4">{pub.description}</p>
+                      <h3 className="text-lg font-bold text-bauhaus-dark mb-1">{pub.title}</h3>
+                      <p className="text-gray-600 text-sm mb-2">{pub.authors} • {pub.date}</p>
+                      <p className="text-gray-700 text-sm mb-3 line-clamp-2">{pub.description}</p>
                       <a 
                         href={pub.link} 
-                        className="inline-flex items-center text-bauhaus-accent hover:text-bauhaus-dark font-medium transition-colors"
+                        className="inline-flex items-center text-bauhaus-accent hover:text-bauhaus-dark font-medium transition-colors text-sm"
                       >
                         Read publication
-                        <ArrowRight className="ml-2 w-4 h-4" />
+                        <ArrowRight className="ml-1 w-3 h-3" />
                       </a>
                     </div>
                   </div>
