@@ -2,8 +2,11 @@
 import { ReactNode, createContext, useContext } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Create a new QueryClient for React Query
-const queryClient = new QueryClient({
+// Create WordPress context
+const WordPressContext = createContext({});
+
+// Create a QueryClient with optimized settings for SSR
+const createQueryClient = () => new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
@@ -14,8 +17,16 @@ const queryClient = new QueryClient({
   },
 });
 
-// WordPress context for potential future expansion
-const WordPressContext = createContext({});
+// Use an existing client for SSR or create a new one for CSR
+let queryClient: QueryClient;
+if (typeof window !== 'undefined') {
+  // Client-side: create a new client if one doesn't exist
+  queryClient = (window as any).__queryClient || createQueryClient();
+  (window as any).__queryClient = queryClient;
+} else {
+  // Server-side: always create a new client
+  queryClient = createQueryClient();
+}
 
 export const useWordPress = () => useContext(WordPressContext);
 
@@ -24,8 +35,6 @@ interface WordPressProviderProps {
 }
 
 export const WordPressProvider = ({ children }: WordPressProviderProps) => {
-  // We could add authentication, global state management, etc. here in the future
-  
   return (
     <QueryClientProvider client={queryClient}>
       <WordPressContext.Provider value={{}}>
