@@ -12,6 +12,20 @@ import LinkedInFeedSection from '../components/home/LinkedInFeedSection';
 import MetaTags from '../components/MetaTags';
 import { wpService } from '../services/wordpress';
 
+// Define interfaces for our data types
+interface Slide {
+  title: string;
+  subtitle: string;
+  image: string;
+}
+
+interface HomePageData {
+  id: string;
+  title: string;
+  content: string;
+  slides: Slide[];
+}
+
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
@@ -21,7 +35,7 @@ const Index = () => {
     queryFn: async () => {
       // Fetch the homepage content
       const page = await wpService.getPageBySlug('home');
-      return page;
+      return page as HomePageData;
     },
   });
   

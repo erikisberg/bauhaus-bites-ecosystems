@@ -26,6 +26,26 @@ const formatPost = (post: any) => {
   };
 };
 
+// Format for pages with potential custom fields like slides
+const formatPage = (page: any) => {
+  // Extract slides from ACF if available, or provide default
+  const slides = page.acf?.slides || [];
+  
+  return {
+    id: page.slug,
+    title: page.title.rendered,
+    content: page.content.rendered,
+    // Include slides array for home page or other pages that might use it
+    slides: slides.length > 0 ? slides : [
+      {
+        title: page.title.rendered,
+        subtitle: page.excerpt?.rendered ? page.excerpt.rendered.replace(/<\/?[^>]+(>|$)/g, "") : "",
+        image: page._embedded?.['wp:featuredmedia']?.[0]?.source_url || undefined
+      }
+    ]
+  };
+};
+
 // API functions
 export const wpService = {
   // Get all posts
@@ -57,11 +77,7 @@ export const wpService = {
   getPages: async () => {
     try {
       const pages = await wp.pages().embed().get();
-      return pages.map((page: any) => ({
-        id: page.slug,
-        title: page.title.rendered,
-        content: page.content.rendered,
-      }));
+      return pages.map((page: any) => formatPage(page));
     } catch (error) {
       console.error('Error fetching pages:', error);
       return [];
@@ -73,12 +89,7 @@ export const wpService = {
     try {
       const pages = await wp.pages().slug(slug).embed().get();
       if (pages && pages.length > 0) {
-        const page = pages[0];
-        return {
-          id: page.slug,
-          title: page.title.rendered,
-          content: page.content.rendered,
-        };
+        return formatPage(pages[0]);
       }
       return null;
     } catch (error) {
