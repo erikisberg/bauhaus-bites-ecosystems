@@ -2,7 +2,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -14,11 +13,10 @@ import Partners from "./pages/Partners";
 import ArticleDetail from "./pages/ArticleDetail";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
-
-const queryClient = new QueryClient();
+import WordPressProvider from "./providers/WordPressProvider";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
+  <WordPressProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -38,7 +36,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
-  </QueryClientProvider>
+  </WordPressProvider>
 );
 
 export default App;

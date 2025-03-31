@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import HeroSection from '../components/home/HeroSection';
@@ -9,17 +10,32 @@ import CitiesSection from '../components/home/CitiesSection';
 import JoinSection from '../components/home/JoinSection';
 import LinkedInFeedSection from '../components/home/LinkedInFeedSection';
 import MetaTags from '../components/MetaTags';
+import { wpService } from '../services/wordpress';
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  const slides = [
+  // Fetch home page data from WordPress
+  const { data: homePageData, isLoading } = useQuery({
+    queryKey: ['homePage'],
+    queryFn: async () => {
+      // Fetch the homepage content
+      const page = await wpService.getPageBySlug('home');
+      return page;
+    },
+  });
+  
+  // Default slide if WordPress data isn't available yet
+  const defaultSlides = [
     {
       title: "BAUHAUS BITES",
       subtitle: "Transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems.",
       image: "/lovable-uploads/6d6466da-efef-42db-afda-e1194d2311e9.png"
     }
   ];
+  
+  // Use WordPress data for slides if available
+  const slides = homePageData?.slides || defaultSlides;
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,7 +46,15 @@ const Index = () => {
   }, [slides.length]);
   
   // For debugging purposes
-  console.log("Current slide image:", slides[currentSlide].image);
+  console.log("Current slide image:", slides[currentSlide]?.image);
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-bauhaus-accent"></div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen">
@@ -43,9 +67,9 @@ const Index = () => {
       <NavBar />
       
       <HeroSection 
-        title={slides[currentSlide].title} 
-        subtitle={slides[currentSlide].subtitle}
-        imageUrl={slides[currentSlide].image}
+        title={slides[currentSlide]?.title || defaultSlides[0].title} 
+        subtitle={slides[currentSlide]?.subtitle || defaultSlides[0].subtitle}
+        imageUrl={slides[currentSlide]?.image || defaultSlides[0].image}
       />
       
       <MissionSection />
