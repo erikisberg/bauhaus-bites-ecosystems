@@ -1,15 +1,17 @@
 
 import { useEffect, useRef } from 'react';
+import { Badge } from './ui/badge';
 
 interface CityCardProps {
   name: string;
   image: string;
   description: string;
   index: number;
+  category?: string;
   onClick?: () => void;
 }
 
-const CityCard = ({ name, image, description, index, onClick }: CityCardProps) => {
+const CityCard = ({ name, image, description, index, category, onClick }: CityCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -47,6 +49,16 @@ const CityCard = ({ name, image, description, index, onClick }: CityCardProps) =
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
+      
+      {category && (
+        <div className="absolute top-3 left-3 z-10">
+          <Badge 
+            className="bg-bauhaus-accent/80 hover:bg-bauhaus-accent text-white font-medium backdrop-blur-sm"
+          >
+            {category}
+          </Badge>
+        </div>
+      )}
       
       <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-dark to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
