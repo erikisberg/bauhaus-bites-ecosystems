@@ -8,10 +8,9 @@ interface CityCardProps {
   description: string;
   index: number;
   category?: string;
-  onClick?: () => void;
 }
 
-const CityCard = ({ name, image, description, index, category, onClick }: CityCardProps) => {
+const CityCard = ({ name, image, description, index, category }: CityCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -40,7 +39,6 @@ const CityCard = ({ name, image, description, index, category, onClick }: CityCa
     <div 
       ref={cardRef}
       className="opacity-0 group relative overflow-hidden rounded-lg shadow-md transition-all hover:shadow-xl cursor-pointer"
-      onClick={onClick}
     >
       <div className="aspect-[4/3] overflow-hidden">
         <img
