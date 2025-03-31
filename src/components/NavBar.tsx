@@ -60,9 +60,14 @@ const NavBar = () => {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            {navItems.map(item => <Link key={item.name} to={item.path} className={`link-underline px-1 py-2 text-sm font-medium tracking-wider transition-colors
-                  ${isActive(item.path) ? 'text-bauhaus-highlight' : 'text-white/90 hover:text-white'}`}>
+            {navItems.map(item => <Link key={item.name} to={item.path} className={`link-underline px-1 py-2 text-sm font-medium tracking-wider transition-colors relative
+                  ${isActive(item.path) 
+                    ? 'text-bauhaus-secondary font-bold' 
+                    : 'text-white/90 hover:text-white'}`}>
                 {item.name}
+                {isActive(item.path) && (
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-bauhaus-secondary rounded-full"></span>
+                )}
               </Link>)}
           </div>
           
@@ -79,9 +84,14 @@ const NavBar = () => {
       {/* Mobile Navigation Menu */}
       <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 bg-bauhaus-dark/95 backdrop-blur-md">
-          {navItems.map(item => <Link key={item.name} to={item.path} className={`block px-3 py-2 rounded-md text-base font-medium 
-                ${isActive(item.path) ? 'text-bauhaus-highlight' : 'text-white/90 hover:text-white'}`}>
+          {navItems.map(item => <Link key={item.name} to={item.path} className={`block px-3 py-2 rounded-md text-base font-medium relative
+                ${isActive(item.path) 
+                  ? 'text-bauhaus-secondary font-bold bg-bauhaus-dark/50' 
+                  : 'text-white/90 hover:text-white'}`}>
               {item.name}
+              {isActive(item.path) && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/2 bg-bauhaus-secondary rounded-r-full"></span>
+              )}
             </Link>)}
         </div>
       </div>
