@@ -8,6 +8,7 @@ import NewsSection from '../components/home/NewsSection';
 import CitiesSection from '../components/home/CitiesSection';
 import JoinSection from '../components/home/JoinSection';
 import LinkedInFeedSection from '../components/home/LinkedInFeedSection';
+import MetaTags from '../components/MetaTags';
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -33,6 +34,12 @@ const Index = () => {
   
   return (
     <div className="min-h-screen">
+      <MetaTags 
+        title="Bauhaus Bites | Sustainable Urban Food Environments"
+        description="An EU-funded initiative transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems."
+        keywords="Bauhaus Bites, food environments, sustainability, urban food systems, EU project, New European Bauhaus"
+      />
+      
       <NavBar />
       
       <HeroSection 

@@ -4,10 +4,17 @@ import Footer from '../components/Footer';
 import { MapPin, Mail, Phone, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import MetaTags from '../components/MetaTags';
 
 const Contact = () => {
   return (
     <div className="min-h-screen">
+      <MetaTags 
+        title="Contact Bauhaus Bites | Get in Touch"
+        description="Have questions about Bauhaus Bites? Interested in collaboration? Get in touch with our team to learn more about sustainable food environments."
+        keywords="contact Bauhaus Bites, food systems collaboration, sustainable food projects, EU food initiative"
+      />
+      
       <NavBar />
       
       <div className="pt-16">
