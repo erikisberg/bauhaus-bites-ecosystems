@@ -42,20 +42,21 @@ const Hero = ({ title, subtitle, imageUrl }: HeroProps) => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-bauhaus-dark">
-      <div className="absolute inset-0 z-0">
-        {imageUrl && (
-          <div 
-            ref={imageRef}
-            className="opacity-0 absolute inset-0 bg-cover bg-center"
-            style={{ 
-              backgroundImage: `url(${imageUrl})`,
-              opacity: 0.5,
-              mixBlendMode: 'overlay'
-            }}
-          />
-        )}
-      </div>
+    <div className="relative min-h-screen bg-bauhaus-dark overflow-hidden">
+      {/* Full-screen background image */}
+      {imageUrl && (
+        <div 
+          ref={imageRef}
+          className="opacity-0 absolute inset-0 bg-cover bg-center bg-no-repeat w-full h-full"
+          style={{ 
+            backgroundImage: `url(${imageUrl})`,
+          }}
+        >
+          {/* Dark overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-bauhaus-dark/60"></div>
+        </div>
+      )}
+      
       <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 lg:px-8 pt-16">
         <h1 
           ref={titleRef}
