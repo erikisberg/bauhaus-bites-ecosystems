@@ -7,6 +7,7 @@ import MissionSection from '../components/home/MissionSection';
 import NewsSection from '../components/home/NewsSection';
 import CitiesSection from '../components/home/CitiesSection';
 import JoinSection from '../components/home/JoinSection';
+import LinkedInFeedSection from '../components/home/LinkedInFeedSection';
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -44,6 +45,8 @@ const Index = () => {
       <CitiesSection />
       
       <JoinSection />
+      
+      <LinkedInFeedSection />
       
       <Footer />
     </div>
