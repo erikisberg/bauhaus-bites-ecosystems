@@ -149,29 +149,6 @@ const About = () => {
             </div>
           </div>
         </section>
-        
-        <section className="py-16 px-4 bg-bauhaus-accent text-white">
-          <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">
-              Funded by the European Union
-            </h2>
-            <p className="max-w-3xl mx-auto text-white/90 mb-8">
-              Bauhaus Bites is proud to be funded by the European Union under the Grant Agreement nr 101182352.
-            </p>
-            <div className="inline-block bg-white p-6 rounded-lg">
-              <img 
-                src="/lovable-uploads/762fcc46-54af-43c7-b3fe-ba84541a49f3.png" 
-                alt="EU Flag" 
-                className="h-16"
-              />
-            </div>
-            <p className="text-sm text-white/70 mt-6 max-w-2xl mx-auto">
-              Views and opinions expressed are however those of the author(s) only and do not necessarily 
-              reflect those of the European Union or European Research Executive Agency (REA). Neither the 
-              European Union nor the granting authority can be held responsible for them.
-            </p>
-          </div>
-        </section>
       </div>
       
       <Footer />
