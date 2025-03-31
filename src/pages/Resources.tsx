@@ -1,4 +1,3 @@
-
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { ArrowRight, FileText, Video, Download, Link as LinkIcon } from 'lucide-react';
@@ -213,34 +212,6 @@ const Resources = () => {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-        
-        <section className="py-16 px-4 bg-bauhaus-accent text-white">
-          <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">
-              Stay Updated
-            </h2>
-            <p className="max-w-2xl mx-auto mb-8">
-              Join our mailing list to receive the latest resources, publications, and updates from the Bauhaus Bites project.
-            </p>
-            <div className="max-w-md mx-auto">
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="w-full px-4 py-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-bauhaus-dark"
-                />
-                <button
-                  className="px-6 py-3 bg-bauhaus-dark text-white rounded-md font-medium hover:bg-bauhaus-dark/90 transition-colors whitespace-nowrap"
-                >
-                  Subscribe
-                </button>
-              </div>
-              <p className="text-xs text-white/70 mt-3">
-                We respect your privacy and will never share your information.
-              </p>
             </div>
           </div>
         </section>
