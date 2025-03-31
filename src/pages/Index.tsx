@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar';
 import NewsArticle from '../components/NewsArticle';
 import { ArrowRight, Newspaper } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -92,7 +93,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* News Articles Section */}
+      {/* News Articles Carousel Section */}
       <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -107,18 +108,27 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {newsArticles.map((article, index) => (
-              <NewsArticle
-                key={index}
-                title={article.title}
-                description={article.description}
-                date={article.date}
-                image={article.image}
-                link={article.link}
-              />
-            ))}
-          </div>
+          <Carousel className="mx-auto max-w-5xl">
+            <CarouselContent>
+              {newsArticles.map((article, index) => (
+                <CarouselItem key={index} className="md:basis-1/1 lg:basis-1/1">
+                  <div className="p-2">
+                    <NewsArticle
+                      title={article.title}
+                      description={article.description}
+                      date={article.date}
+                      image={article.image}
+                      link={article.link}
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-2 mt-6">
+              <CarouselPrevious className="relative static left-0 translate-y-0 ml-0" />
+              <CarouselNext className="relative static right-0 translate-y-0 mr-0" />
+            </div>
+          </Carousel>
           
           <div className="mt-12 text-center">
             <a href="/resources" className="inline-flex items-center text-bauhaus-accent hover:text-bauhaus-dark font-medium transition-colors">
