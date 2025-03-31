@@ -3,10 +3,17 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import MetaTags from '../components/MetaTags';
 
 const About = () => {
   return (
     <div className="min-h-screen">
+      <MetaTags 
+        title="About Bauhaus Bites | Creating Sustainable Food Environments"
+        description="Learn about our EU-funded initiative transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems."
+        keywords="Bauhaus Bites, food environments, sustainability, urban food systems, EU project, New European Bauhaus"
+      />
+      
       <NavBar />
       
       <div className="pt-16">
