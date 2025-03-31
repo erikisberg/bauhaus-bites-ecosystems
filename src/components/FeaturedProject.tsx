@@ -1,5 +1,8 @@
 
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
+import { ArrowRight, Plus, Minus } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
+import { motion } from 'framer-motion';
 
 interface FeaturedProjectProps {
   image: string;
@@ -8,59 +11,80 @@ interface FeaturedProjectProps {
   reverse?: boolean;
 }
 
-const FeaturedProject = ({ image, title, description, reverse = false }: FeaturedProjectProps) => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (entry.target === contentRef.current) {
-              entry.target.classList.add(reverse ? 'animate-fade-in-right' : 'animate-fade-in-left');
-              entry.target.classList.remove('opacity-0');
-            }
-            if (entry.target === imageRef.current) {
-              entry.target.classList.add(reverse ? 'animate-fade-in-left' : 'animate-fade-in-right');
-              entry.target.classList.remove('opacity-0');
-            }
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    if (contentRef.current) observer.observe(contentRef.current);
-    if (imageRef.current) observer.observe(imageRef.current);
-    
-    return () => {
-      if (contentRef.current) observer.unobserve(contentRef.current);
-      if (imageRef.current) observer.unobserve(imageRef.current);
-    };
-  }, [reverse]);
-  
+const FeaturedProject = ({
+  image,
+  title,
+  description,
+  reverse = false,
+}: FeaturedProjectProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Split description into preview and expanded content
+  const previewLength = 150;
+  const previewText = description.substring(0, previewLength) + (description.length > previewLength ? '...' : '');
+  const expandedText = description.substring(previewLength);
+
   return (
-    <div className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-16 py-16`}>
+    <div className="my-12 md:my-20">
       <div 
-        ref={imageRef}
-        className="opacity-0 w-full md:w-1/2 overflow-hidden rounded-lg shadow-xl"
+        className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-12 items-center`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative aspect-video animate-image-glow">
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover transition-transform hover:scale-105 duration-700"
+        <div className="w-full md:w-1/2 relative overflow-hidden rounded-lg">
+          <div className={`absolute inset-0 bg-bauhaus-accent opacity-0 transition-opacity duration-300 ${isHovered ? 'opacity-20' : ''}`} />
+          <img 
+            src={image} 
+            alt={title} 
+            className={`w-full h-64 md:h-96 object-cover transition-transform duration-500 ${isHovered ? 'scale-105' : ''} ${isHovered ? 'animate-image-glow' : ''}`}
           />
         </div>
-      </div>
-      
-      <div 
-        ref={contentRef}
-        className="opacity-0 w-full md:w-1/2 space-y-4"
-      >
-        <h3 className="text-bauhaus-dark text-2xl md:text-3xl font-bold">{title}</h3>
-        <p className="text-gray-700 leading-relaxed">{description}</p>
+
+        <div className="w-full md:w-1/2 space-y-4">
+          <div className={`transition-transform duration-300 ${isHovered ? 'translate-x-2' : ''}`}>
+            <h3 className="text-2xl font-bold text-bauhaus-dark mb-4">{title}</h3>
+            <p className="text-gray-700 leading-relaxed">{previewText}</p>
+            
+            {description.length > previewLength && (
+              <Collapsible 
+                open={isOpen} 
+                onOpenChange={setIsOpen}
+                className="mt-2"
+              >
+                <CollapsibleContent className="text-gray-700 leading-relaxed mt-2 animate-accordion-down">
+                  {expandedText}
+                </CollapsibleContent>
+                
+                <CollapsibleTrigger asChild>
+                  <button 
+                    className="flex items-center gap-2 text-bauhaus-accent hover:text-bauhaus-highlight transition-colors mt-2 font-medium"
+                  >
+                    {isOpen ? (
+                      <>
+                        <Minus size={16} />
+                        Read less
+                      </>
+                    ) : (
+                      <>
+                        <Plus size={16} />
+                        Read more
+                      </>
+                    )}
+                  </button>
+                </CollapsibleTrigger>
+              </Collapsible>
+            )}
+          </div>
+          
+          <a 
+            href="#" 
+            className={`inline-flex items-center mt-4 text-bauhaus-accent hover:text-bauhaus-highlight gap-1 transition-all duration-300 font-medium ${isHovered ? 'gap-2' : ''}`}
+          >
+            Learn more 
+            <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
+          </a>
+        </div>
       </div>
     </div>
   );
