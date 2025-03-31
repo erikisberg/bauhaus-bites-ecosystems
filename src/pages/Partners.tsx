@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -140,11 +141,11 @@ const Partners = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {partners.map((partner) => (
                   <Card key={partner.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="aspect-square bg-gray-100 flex items-center justify-center p-8">
+                    <div className="h-40 bg-white flex items-center justify-center p-6">
                       <img 
                         src={partner.logo} 
                         alt={`${partner.name} logo`} 
-                        className="max-h-full max-w-full object-contain"
+                        className="h-full w-auto max-w-full object-contain"
                       />
                     </div>
                     <CardContent className="p-4">
@@ -167,11 +168,11 @@ const Partners = () => {
                 {partners.map((partner) => (
                   <Card key={partner.id} className="overflow-hidden hover:shadow-md transition-shadow">
                     <div className="flex flex-col md:flex-row">
-                      <div className="w-full md:w-48 h-48 bg-gray-100 flex items-center justify-center p-6 shrink-0">
+                      <div className="w-full md:w-48 h-32 bg-white flex items-center justify-center p-6 shrink-0">
                         <img 
                           src={partner.logo} 
                           alt={`${partner.name} logo`} 
-                          className="max-h-full max-w-full object-contain"
+                          className="h-full w-auto max-w-full object-contain"
                         />
                       </div>
                       <CardContent className="p-6 flex flex-col justify-between flex-grow">
