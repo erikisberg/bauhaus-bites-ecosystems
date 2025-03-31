@@ -1,4 +1,3 @@
-
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { ArrowRight } from 'lucide-react';
@@ -60,53 +59,21 @@ const About = () => {
         </section>
         
         <section className="py-16 px-4 bg-bauhaus-light">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
-                Our Approach
-              </span>
-              <h2 className="text-3xl font-bold text-bauhaus-dark mb-6">
-                The Three Pillars of Bauhaus Bites
-              </h2>
-              <p className="max-w-3xl mx-auto text-gray-700">
-                Our project is built on three core principles that guide our work across all seven European cities.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="w-12 h-12 flex items-center justify-center bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-6">
-                  1
-                </div>
-                <h3 className="text-xl font-bold text-bauhaus-dark mb-4">Sustainability</h3>
-                <p className="text-gray-700">
-                  Creating food environments that minimize ecological footprints while maximizing 
-                  resource efficiency through innovative Nature-Based Solutions.
-                </p>
-              </div>
-              
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="w-12 h-12 flex items-center justify-center bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-6">
-                  2
-                </div>
-                <h3 className="text-xl font-bold text-bauhaus-dark mb-4">Inclusivity</h3>
-                <p className="text-gray-700">
-                  Ensuring food environments are accessible to all community members, regardless 
-                  of socioeconomic status, cultural background, or physical ability.
-                </p>
-              </div>
-              
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="w-12 h-12 flex items-center justify-center bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-6">
-                  3
-                </div>
-                <h3 className="text-xl font-bold text-bauhaus-dark mb-4">Beauty</h3>
-                <p className="text-gray-700">
-                  Integrating aesthetic design principles to create visually appealing and 
-                  culturally resonant food spaces that enhance urban environments.
-                </p>
-              </div>
-            </div>
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-bauhaus-dark">
+              Join Our Journey
+            </h2>
+            <p className="max-w-3xl mx-auto text-gray-700 mb-8">
+              Be part of our mission to transform urban food systems across Europe. Together, we can create 
+              sustainable, inclusive, and beautiful food environments that benefit communities and our planet.
+            </p>
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center px-6 py-3 bg-bauhaus-accent text-white rounded-md hover:bg-bauhaus-accent/90 transition-colors"
+            >
+              Get Involved Today
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </div>
         </section>
         
