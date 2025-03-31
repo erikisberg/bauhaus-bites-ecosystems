@@ -196,10 +196,6 @@ const Resources = () => {
                 </span>
                 <h2 className="text-2xl font-bold text-bauhaus-dark">Recent Articles</h2>
               </div>
-              <Link to="/news" className="text-bauhaus-accent hover:text-bauhaus-dark mt-2 md:mt-0 flex items-center transition-colors text-sm font-medium">
-                View all articles
-                <ArrowRight className="ml-1 w-3 h-3" />
-              </Link>
             </div>
             
             <div className="mx-auto">
