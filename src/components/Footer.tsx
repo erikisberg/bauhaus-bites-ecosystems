@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
-
 const Footer = () => {
-  return (
-    <footer className="bg-bauhaus-dark text-white">
+  return <footer className="text-white bg-[#4b6871]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
@@ -12,11 +10,7 @@ const Footer = () => {
               Transforming urban and peri-urban food systems into sustainable, inclusive, and vibrant ecosystems.
             </p>
             <div className="pt-2">
-              <img 
-                src="/lovable-uploads/762fcc46-54af-43c7-b3fe-ba84541a49f3.png" 
-                alt="EU Flag" 
-                className="h-12"
-              />
+              <img src="/lovable-uploads/762fcc46-54af-43c7-b3fe-ba84541a49f3.png" alt="EU Flag" className="h-12" />
               <p className="text-xs text-gray-400 mt-2">
                 Funded by the European Union under the Grant Agreement nr 101182352.
               </p>
@@ -85,8 +79,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
