@@ -1,4 +1,3 @@
-
 import WPAPI from 'wpapi';
 
 // Initialize the WordPress API
@@ -43,6 +42,22 @@ const formatPage = (page: any) => {
         image: page._embedded?.['wp:featuredmedia']?.[0]?.source_url || undefined
       }
     ]
+  };
+};
+
+// Format city data from WordPress
+const formatCity = (city: any) => {
+  return {
+    id: city.id,
+    name: city.title.rendered,
+    image: city._embedded?.['wp:featuredmedia']?.[0]?.source_url || undefined,
+    shortDescription: city.excerpt?.rendered 
+      ? city.excerpt.rendered.replace(/<\/?[^>]+(>|$)/g, "") 
+      : "",
+    description: city.content.rendered,
+    category: city.acf?.category || "",
+    features: city.acf?.features || [],
+    gallery: city.acf?.gallery?.map((item: any) => item.url) || []
   };
 };
 
@@ -110,5 +125,57 @@ export const wpService = {
       console.error('Error fetching menu:', error);
       return [];
     }
+  },
+
+  // Get all cities
+  getCities: async () => {
+    try {
+      // Assuming 'city' is the custom post type name in WordPress
+      const cities = await wp.posts().type('city').embed().get();
+      return cities.map(formatCity);
+    } catch (error) {
+      console.error('Error fetching cities:', error);
+      // Return fallback city data if API fails
+      return getDefaultCities();
+    }
+  },
+
+  // Get a single city by ID
+  getCityById: async (id: string) => {
+    try {
+      const city = await wp.posts().type('city').id(id).embed().get();
+      return formatCity(city);
+    } catch (error) {
+      console.error(`Error fetching city with ID ${id}:`, error);
+      // Return a fallback city if API fails
+      const defaultCity = getDefaultCities().find(c => c.id.toString() === id);
+      return defaultCity || null;
+    }
   }
 };
+
+// Default cities data as fallback
+function getDefaultCities() {
+  return [
+    {
+      id: 1,
+      name: "Amsterdam",
+      image: "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      shortDescription: "Creating connected food networks through urban canal systems.",
+      description: "Amsterdam's Bauhaus Bites initiative focuses on utilizing the city's famous canal system as a network for sustainable food distribution, connecting urban farms to local markets and communities.",
+      category: "Urban Waters",
+      features: [
+        "Floating gardens on canal barges",
+        "Hydroponics systems integrated with historical buildings",
+        "Water-based food distribution network",
+        "Community gardening spaces along canals"
+      ],
+      gallery: [
+        "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1558551649-e44c8f992010?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1512470053050-8d2635a6206b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+      ]
+    },
+    // ... more default cities would go here
+  ];
+}
