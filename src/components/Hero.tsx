@@ -41,7 +41,8 @@ const Hero = ({ title, subtitle, imageUrl }: HeroProps) => {
     }
   }, []);
 
-  const backgroundImageUrl = imageUrl || "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80";
+  // Use uploaded image as default background
+  const backgroundImageUrl = imageUrl || "/lovable-uploads/6d6466da-efef-42db-afda-e1194d2311e9.png";
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -53,8 +54,8 @@ const Hero = ({ title, subtitle, imageUrl }: HeroProps) => {
           backgroundImage: `url(${backgroundImageUrl})`,
         }}
       >
-        {/* Dark overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-bauhaus-dark/60"></div>
+        {/* Dark overlay with teal tint to ensure text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bauhaus-dark/80 to-bauhaus-dark/50"></div>
       </div>
       
       <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 lg:px-8 pt-16">
