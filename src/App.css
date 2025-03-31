@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #43616C;
 }
+
+/* Logo hover animation */
+.logo-hover-effect {
+  transition: transform 0.3s ease;
+}
+
+.logo-hover-effect:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 8px rgba(229, 123, 36, 0.5));
+}

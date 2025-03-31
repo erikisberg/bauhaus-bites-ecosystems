@@ -1,6 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import Logo from './Logo';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,9 +55,7 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#1b3f46]">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <span className="text-white font-bold text-xl tracking-wide">BAUHAUS BITES</span>
-            </Link>
+            <Logo size="md" />
           </div>
           
           {/* Desktop Navigation */}
