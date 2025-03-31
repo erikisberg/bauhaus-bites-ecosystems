@@ -1,3 +1,4 @@
+
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import ArticleFeed from '../components/ArticleFeed';
@@ -84,25 +85,6 @@ const Resources = () => {
             </div>
           </div>
         </div>
-        
-        <section className="py-12 px-4 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-8">
-              <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-4">
-                <Newspaper className="w-3 h-3 inline mr-1" />
-                News & Articles
-              </span>
-              <h2 className="text-3xl font-bold text-bauhaus-dark mb-4">
-                Latest Updates
-              </h2>
-              <p className="text-gray-700 max-w-3xl">
-                Stay informed with the latest news, developments, and success stories from our initiatives across Europe.
-              </p>
-            </div>
-            
-            <ArticleFeed />
-          </div>
-        </section>
         
         <section className="py-12 px-4 bg-gray-50">
           <div className="max-w-7xl mx-auto">
@@ -199,6 +181,29 @@ const Resources = () => {
                     </a>
                   </div>
                 </div>)}
+            </div>
+          </div>
+        </section>
+        
+        {/* Compact Article Feed just above the footer */}
+        <section className="py-8 px-4 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
+              <div>
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-bauhaus-accent/10 text-bauhaus-accent rounded-full mb-2">
+                  <Newspaper className="w-3 h-3 inline mr-1" />
+                  Latest News
+                </span>
+                <h2 className="text-2xl font-bold text-bauhaus-dark">Recent Articles</h2>
+              </div>
+              <Link to="/news" className="text-bauhaus-accent hover:text-bauhaus-dark mt-2 md:mt-0 flex items-center transition-colors text-sm font-medium">
+                View all articles
+                <ArrowRight className="ml-1 w-3 h-3" />
+              </Link>
+            </div>
+            
+            <div className="mx-auto">
+              <ArticleFeed />
             </div>
           </div>
         </section>
