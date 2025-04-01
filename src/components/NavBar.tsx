@@ -3,54 +3,11 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
-import { wpService } from '../services/wordpress';
-import { useQuery } from '@tanstack/react-query';
-
-// Type for WordPress menu items
-interface WPMenuItem {
-  ID: number;
-  title: string;
-  url: string;
-  slug: string;
-  children?: WPMenuItem[];
-}
-
-// Process WordPress menu URL to get the path for React Router
-const getPathFromWPUrl = (url: string): string => {
-  try {
-    const urlObj = new URL(url);
-    return urlObj.pathname === '/' ? '/' : urlObj.pathname;
-  } catch (e) {
-    // If URL parsing fails, return the original string as is
-    return url;
-  }
-};
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  // Fetch menu from WordPress
-  const { data: wpMenuItems = [], isLoading, error } = useQuery({
-    queryKey: ['mainMenu'],
-    queryFn: wpService.getMenu,
-    staleTime: 1000 * 60 * 60, // Cache for 1 hour
-  });
-
-  // Process WordPress menu items for our app
-  const navItems = isLoading || error ? [
-    { name: 'HOME', path: '/' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'CITIES', path: '/cities' },
-    { name: 'PARTNERS', path: '/partners' },
-    { name: 'RESOURCES', path: '/resources' },
-    { name: 'FAQ', path: '/faq' },
-    { name: 'CONTACT', path: '/contact' }
-  ] : wpMenuItems.map((item: WPMenuItem) => ({
-    name: item.title.toUpperCase(),
-    path: getPathFromWPUrl(item.url)
-  }));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,16 +25,36 @@ const NavBar = () => {
     setIsOpen(false);
   }, [location]);
 
+  const navItems = [{
+    name: 'HOME',
+    path: '/'
+  }, {
+    name: 'ABOUT',
+    path: '/about'
+  }, {
+    name: 'CITIES',
+    path: '/cities'
+  }, {
+    name: 'PARTNERS',
+    path: '/partners'
+  }, {
+    name: 'RESOURCES',
+    path: '/resources'
+  }, {
+    name: 'FAQ',
+    path: '/faq'
+  }, {
+    name: 'CONTACT',
+    path: '/contact'
+  }];
+
   const isActive = (path: string) => {
     if (path === '/' && location.pathname === '/') return true;
     if (path !== '/' && location.pathname.startsWith(path)) return true;
     return false;
   };
 
-  // If there's an error loading the menu, we use the fallback defined in navItems
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${scrolled ? 'bg-bauhaus-dark/95 shadow-md backdrop-blur-md' : 'bg-transparent'}`}>
+  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${scrolled ? 'bg-bauhaus-dark/95 shadow-md backdrop-blur-md' : 'bg-transparent'}`}>
       <div className="w-full bg-bauhaus-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
@@ -123,8 +100,7 @@ const NavBar = () => {
             </Link>)}
         </div>
       </div>
-    </nav>
-  );
+    </nav>;
 };
 
 export default NavBar;

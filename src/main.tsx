@@ -1,9 +1,17 @@
 
-import './index.css';
+import { createRoot } from 'react-dom/client'
+import App from './App.tsx'
+import './index.css'
 
-// In development, use the regular React entry
-if (import.meta.env.DEV) {
-  import('./entry-client.jsx');
+const rootElement = document.getElementById("root")!;
+
+if (rootElement.hasChildNodes()) {
+  // If the root element has children, that means the app is being hydrated after pre-rendering
+  // Use render instead of hydrate as hydrate is not available in React 18
+  createRoot(rootElement).render(<App />);
+} else {
+  // Normal rendering for development
+  createRoot(rootElement).render(<App />);
 }
 
 // This helps react-snap know when the page has been loaded
@@ -11,7 +19,6 @@ if (import.meta.env.DEV) {
 declare global {
   interface Window {
     snapSaveState: () => void;
-    __PRELOADED_STATE__: any;
   }
 }
 

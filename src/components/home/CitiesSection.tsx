@@ -1,39 +1,29 @@
 
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { ArrowRight } from 'lucide-react';
 import { Badge } from '../ui/badge';
-import { wpService } from '../../services/wordpress';
-
-interface City {
-  id: number;
-  name: string;
-  image: string;
-  category?: string;
-}
 
 const CitiesSection = () => {
-  const { data: allCities, isLoading } = useQuery({
-    queryKey: ['cities'],
-    queryFn: wpService.getCities
-  });
-  
-  // Use only the first 3 cities for the homepage section
-  const cities = allCities?.slice(0, 3) || [];
-  
-  if (isLoading) {
-    return (
-      <section className="section-padding bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <div className="h-8 w-32 bg-gray-200 rounded mx-auto mb-4 animate-pulse"></div>
-            <div className="h-10 w-3/4 bg-gray-200 rounded mx-auto mb-6 animate-pulse"></div>
-            <div className="h-20 w-1/2 bg-gray-200 rounded mx-auto animate-pulse"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const cities = [
+    {
+      id: 1,
+      name: "Amsterdam",
+      image: "https://images.unsplash.com/photo-1546636889-ba9fdd63583e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80",
+      category: "Urban Waters"
+    },
+    {
+      id: 2,
+      name: "Barcelona",
+      image: "https://images.unsplash.com/photo-1516550893885-7b7791882062?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1972&q=80",
+      category: "Mediterranean"
+    },
+    {
+      id: 3,
+      name: "Copenhagen",
+      image: "https://images.unsplash.com/photo-1551352912-484163ad5be0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
+      category: "Circular Economy"
+    }
+  ];
   
   return (
     <section className="section-padding bg-white">
@@ -43,7 +33,7 @@ const CitiesSection = () => {
             Our Cities
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-bauhaus-dark mb-6">
-            Exploring European Cities
+            Exploring Seven European Cities
           </h2>
           <p className="max-w-3xl mx-auto text-gray-700 leading-relaxed">
             Discover how we're implementing innovative food environments across Europe,
